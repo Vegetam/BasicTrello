@@ -7,13 +7,14 @@ function requireHTTPS(req, res, next) {
 }
 
 const express = require('express');
+const path = require('path');
 const app = express();
 
 app.use(requireHTTPS);
 app.use(express.static('./dist/trelloclone'));
 
-app.get('/*', (req, res) =>
-    res.sendFile('index.html', {root: 'dist/trelloclone/'}),
-);
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
+});
 
 app.listen(process.env.PORT || 8080);
